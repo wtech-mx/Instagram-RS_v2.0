@@ -20,18 +20,16 @@
 
                     <label for="nombre">Name</label>
                     <input type="text"
-                           class="form-control @error('name') is-invalid @enderror"
+                           class="form-control "
                            name="name"
                            id="name"
                            placeholder="name"
                           value="{{$profile->User->name}}"
                     >
 
-                    @error('name')
-                        <span class="invalid-feedback d-block" role="alert">
-                            <strong>{{$message}}</strong>
-                        </span>
-                    @enderror
+                @if ($errors->has('name'))
+                	<span class="text-danger">{{ $errors->first('name') }}</span>
+            	@endif
 
                 </div>
 
@@ -40,18 +38,16 @@
                     <label for="biography">Biography</label>
 
                     <input type="text"
-                           class="form-control @error('biography') is-invalid @enderror"
+                           class="form-control"
                            name="biography"
                            id="biography"
                            placeholder="biography"
                              value="{{$profile->biography}}"
                     >
 
-                    @error('biography')
-                        <span class="invalid-feedback d-block" role="alert">
-                            <strong>{{$message}}</strong>
-                        </span>
-                    @enderror
+                @if ($errors->has('biography'))
+                	<span class="text-danger">{{ $errors->first('biography') }}</span>
+            	@endif
 
                 </div>
 
@@ -60,9 +56,12 @@
                     <label for="img">Image</label>
                     <input type="file"
                             id="img"
-                           class="form-control @error('img') is-invalid @enderror"
+                           class="form-control"
                            name="img"
                     >
+                    @if ($errors->has('img'))
+                        <span class="text-danger">{{ $errors->first('img') }}</span>
+                    @endif
 
                     @if($profile->img)
                         <div class="mt-4">
@@ -70,11 +69,8 @@
                             <img class="card-img" src="{{asset('upload-img/'.$profile->img)}}" alt="{{$profile->img}}" style="width: 300px">
                         </div>
 
-                        @error('img')
-                            <span class="invalid-feedback d-block" role="alert">
-                                <strong>{{$message}}</strong>
-                            </span>
-                        @enderror
+
+
                     @endif
                 </div>
 

@@ -18,7 +18,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('auth',['except' => 'index']);
     }
 
     /**
@@ -28,8 +28,6 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $new = Post::latest()->get();
-        $new2 = Post::latest()->get();
 
         $posts = Post::all();
 
@@ -45,6 +43,6 @@ class HomeController extends Controller
             $post[ Str::slug( $category->name ) ][] = Post::where('post_id', $category->id )->take(3)->get();
         }
 
-        return view('home', compact('new','new2' ,'post','users','posts','posts2'));
+        return view('home', compact('post','users','posts','posts2'));
     }
 }

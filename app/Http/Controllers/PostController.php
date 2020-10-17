@@ -10,6 +10,12 @@ use Intervention\Image\Facades\Image;
 
 class PostController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function index()
     {
         $posts = Post::all();
@@ -60,7 +66,7 @@ class PostController extends Controller
         $this->authorize('view',$post);
         $category = CategoryPosts::all(['id','name']);
 
-        return view('post.edit',compact('category','post'));
+        return view('posts.edit',compact('category','post'));
     }
 
     public function update(Request $request, Post $post)

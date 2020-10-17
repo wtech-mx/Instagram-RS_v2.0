@@ -20,9 +20,15 @@ class ProfileController extends Controller
     {
 
         $post = Post::where('user_id', $profile->user_id)->paginate(3);
-
-
         $post2 = Post::where('user_id', $profile->user_id)->paginate(3);
+
+        if (Auth::check() == true){
+
+            return view('profile.show',compact('profile','post','post2'));
+
+        } else{
+              return Redirect::back();
+        }
 
         return view('profile.show',compact('profile','post','post2'));
     }

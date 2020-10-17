@@ -19,18 +19,16 @@
 
                     <label for="title">Post title</label>
                     <input type="text"
-                           class="form-control @error('title') is-invalid @enderror"
+                           class="form-control "
                            name="title"
                            id="title"
                            placeholder="Post title"
                            value="{{$post->title}}"
                     >
 
-                    @error('title')
-                        <span class="invalid-feedback d-block" role="alert">
-                            <strong>{{$message}}</strong>
-                        </span>
-                    @enderror
+                    @if ($errors->has('img'))
+                        <span class="text-danger">{{ $errors->first('img') }}</span>
+                    @endif
 
                 </div>
 
@@ -39,7 +37,7 @@
 
                     <select name="post_id"
                             id="post_id"
-                            class="form-control @error('post_id') is-invalid @enderror"
+                            class="form-control "
                     >
                         <option value="">- Select -</option>
 
@@ -51,12 +49,6 @@
                        @endforeach
                     </select>
 
-                    @error('post_id')
-                        <span class="invalid-feedback d-block" role="alert">
-                            <strong>{{$message}}</strong>
-                        </span>
-                    @enderror
-
                 </div>
 
                 <div class="form-group mt-3">
@@ -64,18 +56,15 @@
                     <label for="description">Write caption</label>
 
                     <input type="text"
-                           class="form-control @error('description') is-invalid @enderror"
+                           class="form-control "
                            name="description"
                            id="description"
                            placeholder="Post title"
                            value="{{$post->description}}"
                     >
-
-                    @error('description')
-                        <span class="invalid-feedback d-block" role="alert">
-                            <strong>{{$message}}</strong>
-                        </span>
-                    @enderror
+                    @if ($errors->has('description'))
+                        <span class="text-danger">{{ $errors->first('description') }}</span>
+                    @endif
 
                 </div>
 
@@ -84,19 +73,17 @@
                     <label for="img">Image</label>
                     <input type="file"
                             id="img"
-                           class="form-control @error('img') is-invalid @enderror"
+                           class="form-control "
                            name="img"
                     >
+                    @if ($errors->has('img'))
+                        <span class="text-danger">{{ $errors->first('img') }}</span>
+                    @endif
                     <div class="mt-4">
                         <p>Current image</p>
                         <img src="{{asset('upload-img/'.$post->img)}}" style="width: 300px">
                     </div>
 
-                    @error('img')
-                        <span class="invalid-feedback d-block" role="alert">
-                            <strong>{{$message}}</strong>
-                        </span>
-                    @enderror
 
                 </div>
 

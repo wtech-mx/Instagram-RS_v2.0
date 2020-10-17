@@ -77,12 +77,12 @@
                                                 <a href="{{ route('posts.like', $post) }}" class="btn btn-light btn-sm">
                                                     <i class="far fa-heart"></i>
                                                 </a>
-                                               <p class="">{{ $post->likesCount }} Likes</p>
+                                                <p class="">{{ $post->likesCount }} Likes</p>
                                             @else
                                                 <a href="{{ route('posts.unlike', $post) }}" class="btn btn-danger btn-sm">
                                                     <i class="far fa-heart"></i>
                                                 </a>
-                                               <p class="">{{ $post->likesCount }} Likes</p>
+                                                <p class="">{{ $post->likesCount }} Likes</p>
                                             @endif
 
         {{--                                    @if (! $post->disliked)--}}

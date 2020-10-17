@@ -56,7 +56,6 @@
                                             @endif
                                 </div>
                                  <div class="row post-header px-3 pb-3">
-                                     <div class="col-10 float-left text-left">Likes</div>
                                     <div class="col-10 float-left text-left">{{$post->description}}</div>
                                 </div>
                             </div>
@@ -80,7 +79,25 @@
                                 </div>
                                 <img class="card-img" src="{{asset('upload-img/'.$post->img)}}" alt="Card image cap">
                                 <div class="card-body px-3">
-                                    <h5 class="card-title"><i class="far fa-heart"></i></h5>
+                                        <div class="card-body px-3">
+                                            @if (! $post->liked)
+                                                <a href="{{ route('posts.like', $post) }}" class="btn btn-light btn-sm">
+                                                    <i class="far fa-heart"></i>
+                                                </a>
+                                                <p class="">{{ $post->likesCount }} Likes</p>
+                                            @else
+                                                <a href="{{ route('posts.unlike', $post) }}" class="btn btn-danger btn-sm">
+                                                    <i class="far fa-heart"></i>
+                                                </a>
+                                                <p class="">{{ $post->likesCount }} Likes</p>
+                                            @endif
+
+        {{--                                    @if (! $post->disliked)--}}
+        {{--                                        <a href="{{ route('posts.dislike', $post) }}" class="btn btn-secondary btn-sm">({{ $post->dislikesCount }}) No me gusta</a>--}}
+        {{--                                    @else--}}
+        {{--                                        <a href="{{ route('posts.undislike', $post) }}" class="btn btn-secondary btn-sm">({{ $post->dislikesCount }}) Te disgusta</a>--}}
+        {{--                                    @endif--}}
+                                        </div>
                                 </div>
                                  <div class="row post-header px-3 pb-3">
                                      <div class="col-10 float-left text-left">Likes</div>

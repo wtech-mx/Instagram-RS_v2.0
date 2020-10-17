@@ -104,17 +104,29 @@
                     @if(count($post2) > 0)
                     @foreach($post2 as $post2)
                         <div class="col-md-4 col-sm-6 px-1 my-1 ">
-                            <div class="card mx-auto custom-card" id="prova">
-                                <div class="row post-header col-12 py-2 px-3">
-                                    <div class="col-6 float-left "><h4>{{$post2->title}}</h4></div>
-                                </div>
-                                <img class="card-img" src="{{asset('upload-img/'.$post2->img)}}" alt="Card image cap">
-                                <div class="card-body px-3">
-                                    <h5 class="card-title"><i class="far fa-heart"></i></h5>
-                                </div>
-                                 <div class="row post-header px-3 pb-3">
-                                     <div class="col-10 float-left text-left">Likes</div>
-                                    <div class="col-10 float-left text-left">{{$post2->description}}</div>
+<div class="card mx-auto custom-card mb-5" id="prova">
+                                    <div class="row post-header col-12 py-2 px-3">
+                                        <div class="col-6 float-left "><h4>{{$post->title}}</h4></div>
+                                    </div>
+{{--                                    <a href="{{route('posts.show',['post'=>$post->id])}}">--}}
+                                        <img class="card-img" src="{{asset('upload-img/'.$post->img)}}" alt="Card image cap">
+{{--                                    </a>--}}
+                                    <div class="card-body px-3">
+                                            @if (! $post->liked)
+                                                <a href="{{ route('posts.like', $post) }}" class="btn btn-light btn-sm">
+                                                    <i class="far fa-heart"></i>
+                                                </a>
+                                                <p class="">{{ $post->likesCount }} Likes</p>
+                                            @else
+                                                <a href="{{ route('posts.unlike', $post) }}" class="btn btn-danger btn-sm">
+                                                    <i class="far fa-heart"></i>
+                                                </a>
+                                                <p class="">{{ $post->likesCount }} Likes</p>
+                                            @endif
+                                    </div>
+                                     <div class="row post-header px-3 pb-3">
+                                         <div class="col-10 float-left text-left">Likes</div>
+                                        <div class="col-10 float-left text-left">{{$post->description}}</div>
                                         <div class="col-1 float-right text-right">
                                             <form action="{{ route('posts.destroy',$post->id)}}" method="POST">
                                                 @csrf
@@ -125,15 +137,19 @@
                                                         <a class="dropdown-item"  data-toggle="modal" data-target="#exampleModalCenter">
                                                           Eliminar
                                                         </a>
-                                                    <a class="dropdown-item" href="">Editar</a>
+                                                    <a class="dropdown-item" href="{{ route('posts.edit',$post->id)}}">Editar</a>
                                                   </div>
                                                     @include('profile.modal')
 
                                                 </a>
                                             </form>
                                         </div>
+
+
+
+
+                                    </div>
                                 </div>
-                            </div>
                         </div>
                      @endforeach
                     @else

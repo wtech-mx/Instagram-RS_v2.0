@@ -40,6 +40,4 @@ Route::resource('posts', 'PostController');
 
 Route::get('posts/{post}/like', 'PostController@like')->name('posts.like');
 Route::get('posts/{post}/unlike', 'PostController@unlike')->name('posts.unlike');
-Route::get('posts/{post}/dislike', 'PostController@dislike')->name('posts.dislike');
-Route::get('posts/{post}/undislike', 'PostController@undislike')->name('posts.undislike');
 
