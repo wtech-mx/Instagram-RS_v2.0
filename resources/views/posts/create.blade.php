@@ -19,12 +19,15 @@
 
                     <label for="title">Post title</label>
                     <input type="text"
-                           class="form-control @error('title') is-invalid @enderror"
+                           class="form-control"
                            name="title"
                            id="title"
                            placeholder="Post title"
                            value="{{old('title')}}"
                     >
+                @if ($errors->has('title'))
+                	<span class="text-danger">{{ $errors->first('title') }}</span>
+            	@endif
 
                 </div>
 
@@ -33,8 +36,11 @@
 
                     <select name="post_id"
                             id="post_id"
-                            class="form-control @error('post_id') is-invalid @enderror"
+                            class="form-control "
                     >
+                @if ($errors->has('post_id'))
+                	<span class="text-danger">{{ $errors->first('post_id') }}</span>
+            	@endif
                         <option value="">- Select -</option>
 
                         @foreach($post as $post)
@@ -52,12 +58,15 @@
                     <label for="description">Write caption</label>
 
                     <input type="text"
-                           class="form-control @error('description') is-invalid @enderror"
+                           class="form-control"
                            name="description"
                            id="description"
                            placeholder="Post title"
                            value="{{old('description')}}"
                     >
+                @if ($errors->has('description'))
+                	<span class="text-danger">{{ $errors->first('description') }}</span>
+            	@endif
 
                 </div>
 
@@ -66,10 +75,12 @@
                     <label for="img">Image</label>
                     <input type="file"
                             id="img"
-                           class="form-control @error('img') is-invalid @enderror"
+                           class="form-control "
                            name="img"
                     >
-
+                @if ($errors->has('img'))
+                	<span class="text-danger">{{ $errors->first('img') }}</span>
+            	@endif
 
                 </div>
 

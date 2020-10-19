@@ -22,19 +22,26 @@
 
                             <div class="card mx-auto custom-card mb-5" id="prova">
                                 <div class="row post-header col-12 py-2 px-3">
-                                    <div class="col-6 float-left "><h4>{{$post->title}}</h4></div>
-                                        <div class="col-6 float-right ">
-                                            <a href="{{route('profile.show',$post->User->id)}}">
-                                                <h4 class="text-right">{{$post->User->name}}</h4>
+                                        <div class="col-6 float-left ">
+                                             <a href="{{route('profile.show',$post->User->id)}}">
+                                                 <img class="rounded-circle" src="{{asset('upload-img/'.$post->User->Profile->img)}}" style="width: 50px;">
+                                                <h4 class="text-left d-inline ml-2">{{$post->User->name}}</h4>
                                            </a>
                                         </div>
+
+                                        <div class="col-6 float-right ">
+                                            <h4 class="text-right">{{$post->title}}</h4>
+                                        </div>
                                 </div>
+
                                     <img class="card-img" src="{{asset('upload-img/'.$post->img)}}" alt="Card image cap" style="width: 600px">
                                         <div class="card-body px-3">
+
                                             @if (! $post->liked)
                                                 <a href="{{ route('posts.like', $post) }}" class="btn btn-light btn-sm">
                                                     <i class="far fa-heart"></i>
                                                 </a>
+
                                                 <p class="">{{ $post->likesCount }} Likes</p>
                                             @else
                                                 <a href="{{ route('posts.unlike', $post) }}" class="btn btn-danger btn-sm">
@@ -42,16 +49,28 @@
                                                 </a>
                                                 <p class="">{{ $post->likesCount }} Likes</p>
                                             @endif
-
-        {{--                                    @if (! $post->disliked)--}}
-        {{--                                        <a href="{{ route('posts.dislike', $post) }}" class="btn btn-secondary btn-sm">({{ $post->dislikesCount }}) No me gusta</a>--}}
-        {{--                                    @else--}}
-        {{--                                        <a href="{{ route('posts.undislike', $post) }}" class="btn btn-secondary btn-sm">({{ $post->dislikesCount }}) Te disgusta</a>--}}
-        {{--                                    @endif--}}
+                                            <div class="col-10 float-left text-left">{{$post->description}}</div>
                                         </div>
-                                 <div class="row post-header px-2 pb-2">
-                                    <div class="col-10 float-left text-left">{{$post->description}}</div>
-                                </div>
+                                     <div class="row post-header px-2 pb-2">
+                                        <div class="col-10 float-left text-left">
+                                            <h4>Display Comments</h4>
+                                            <hr>
+
+{{--                                             @include('posts.comments', ['comments' => $post->comments, 'post_id' => $post->id])--}}
+                                               <hr />
+                                            <h4>Add comment</h4>
+                                            <form method="POST" action="{{ route('comments.store')  }}">
+                                                @csrf
+                                                <div class="form-group">
+                                                    <textarea class="form-control" name="body"></textarea>
+                                                    <input type="hidden" name="post_id" value="{{ $post->id }}" />
+                                                </div>
+                                                <div class="form-group">
+                                                    <input type="submit" class="btn btn-success" value="Add Comment" />
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
                             </div>
                             @endforeach
 
@@ -85,11 +104,6 @@
                                                 <p class="">{{ $post->likesCount }} Likes</p>
                                             @endif
 
-        {{--                                    @if (! $post->disliked)--}}
-        {{--                                        <a href="{{ route('posts.dislike', $post) }}" class="btn btn-secondary btn-sm">({{ $post->dislikesCount }}) No me gusta</a>--}}
-        {{--                                    @else--}}
-        {{--                                        <a href="{{ route('posts.undislike', $post) }}" class="btn btn-secondary btn-sm">({{ $post->dislikesCount }}) Te disgusta</a>--}}
-        {{--                                    @endif--}}
                                         </div>
                                  <div class="row post-header px-2 pb-2">
                                     <div class="col-10 float-left text-left">{{$post->description}}</div>

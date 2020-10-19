@@ -30,13 +30,16 @@
 
                             <div class="card mx-auto custom-card mb-5" id="prova">
                                 <div class="row post-header col-12 py-2 px-3">
-                                    <div class="col-6 float-left "><h4>{{$post->title}}</h4></div>
-                                        <div class="col-6 float-right ">
-                                            <a href="{{route('profile.show',$post->User->id)}}">
-                                                <h4 class="text-right">{{$post->User->name}}</h4>
+                                        <div class="col-6 float-left ">
+                                             <a href="{{route('profile.show',$post->User->id)}}">
+                                                 <img class="rounded-circle" src="{{asset('upload-img/'.$post->User->Profile->img)}}" style="width: 50px;">
+                                                <h4 class="text-left d-inline ml-2">{{$post->User->name}}</h4>
                                            </a>
                                         </div>
 
+                                        <div class="col-6 float-right ">
+                                            <h4 class="text-right">{{$post->title}}</h4>
+                                        </div>
                                 </div>
 {{--                                <a href="{{route('posts.show',['post'=>$post->id])}}">--}}
                                     <img class="card-img" src="{{asset('upload-img/'.$post->img)}}" alt="Card image cap" style="width: 600px">
@@ -70,12 +73,16 @@
                         <div class="col-md-4 col-sm-6 px-1 my-1 ">
                             <div class="card mx-auto custom-card" id="prova">
                                 <div class="row post-header col-12 py-2 px-3">
-                                    <div class="col-6 float-left "><h4>{{$post->title}}</h4></div>
-                                    <div class="col-6 float-right ">
-                                        <a href="{{route('profile.show',$post->User->id)}}">
-                                                <h4 class="text-right">{{$post->User->name}}</h4>
+                                        <div class="col-6 float-left ">
+                                             <a href="{{route('profile.show',$post->User->id)}}">
+                                                 <img class="rounded-circle" src="{{asset('upload-img/'.$post->User->Profile->img)}}" style="width: 50px;">
+                                                <h4 class="text-left d-inline ml-2">{{$post->User->name}}</h4>
                                            </a>
-                                    </div>
+                                        </div>
+
+                                        <div class="col-6 float-right ">
+                                            <h4 class="text-right">{{$post->title}}</h4>
+                                        </div>
                                 </div>
                                 <img class="card-img" src="{{asset('upload-img/'.$post->img)}}" alt="Card image cap">
                                 <div class="card-body px-3">
@@ -91,12 +98,6 @@
                                                 </a>
                                                 <p class="">{{ $post->likesCount }} Likes</p>
                                             @endif
-
-        {{--                                    @if (! $post->disliked)--}}
-        {{--                                        <a href="{{ route('posts.dislike', $post) }}" class="btn btn-secondary btn-sm">({{ $post->dislikesCount }}) No me gusta</a>--}}
-        {{--                                    @else--}}
-        {{--                                        <a href="{{ route('posts.undislike', $post) }}" class="btn btn-secondary btn-sm">({{ $post->dislikesCount }}) Te disgusta</a>--}}
-        {{--                                    @endif--}}
                                         </div>
                                 </div>
                                  <div class="row post-header px-3 pb-3">

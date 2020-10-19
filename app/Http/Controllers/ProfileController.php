@@ -19,18 +19,18 @@ class ProfileController extends Controller
     public function show(Profile $profile)
     {
 
-        $post = Post::where('user_id', $profile->user_id)->paginate(3);
-        $post2 = Post::where('user_id', $profile->user_id)->paginate(3);
+        $posts = Post::where('user_id', $profile->user_id)->paginate(3);
+        $posts2 = Post::where('user_id', $profile->user_id)->paginate(3);
 
         if (Auth::check() == true){
 
-            return view('profile.show',compact('profile','post','post2'));
+            return view('profile.show',compact('profile','posts','posts2'));
 
         } else{
-              return Redirect::back();
+
+            return redirect('/login');
         }
 
-        return view('profile.show',compact('profile','post','post2'));
     }
 
     public function edit(Profile $profile)

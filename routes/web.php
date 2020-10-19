@@ -30,6 +30,8 @@ Route::delete('/posts/{post}','PostController@destroy')->name('posts.destroy');
 
 Route::get('/search','PostController@search')->name('search.show');
 
+Route::post('/','CommentController@store')->name('comments.store');
+
 Route::get('/category/{categoryPost}','CategoriasController@show')->name('post.show');
 
 Route::get('/profile/{profile}','ProfileController@show')->name('profile.show');

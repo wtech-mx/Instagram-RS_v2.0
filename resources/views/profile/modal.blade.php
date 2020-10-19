@@ -17,7 +17,7 @@
                     <p class="text-center">Una vez, eliminado no se puede recuperar</p>
 
                     <div class="d-flex justify-content-center">
-                        <input type="submit" class="btn  btn-lg btn-info mr-1 d-block" value="SI">
+                        <input type="submit" class="btn  btn-lg btn-info mr-1 d-block" value="SI" style="color: #fff">
                         <button type="button" class="btn btn-lg btn-danger" data-dismiss="modal">No</button>
                     </div>
 

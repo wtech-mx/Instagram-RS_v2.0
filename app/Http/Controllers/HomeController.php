@@ -28,7 +28,6 @@ class HomeController extends Controller
      */
     public function index()
     {
-
         $posts = Post::all();
 
         $posts2 = Post::all();

@@ -31,9 +31,15 @@ class User extends Authenticatable implements LikerContrat
     {
         return $this->hasMany(Post::class);
     }
+
     public function Profile()
     {
         return $this->hasOne(Profile::class);
+    }
+
+    public function Comments()
+    {
+        return $this->hasMany(Comment::class);
     }
 
 }
