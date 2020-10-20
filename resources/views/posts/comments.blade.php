@@ -1,19 +1,34 @@
-@foreach($comments as $comment)
-    <div class="display-comment" @if($comment->parent_id != null) style="margin-left:40px;" @endif>
-        <strong>{{ $comment->user->name }}</strong>
-        <p>{{ $comment->body }}</p>
-        <a href="" id="reply"></a>
-        <form method="post" action="{{ route('comments.store') }}">
-            @csrf
-            <div class="form-group">
-                <input type="text" name="body" class="form-control" />
-                <input type="hidden" name="post_id" value="{{ $post_id }}" />
-                <input type="hidden" name="parent_id" value="{{ $comment->id }}" />
-            </div>
-            <div class="form-group">
-                <input type="submit" class="btn btn-warning" value="Reply" />
-            </div>
-        </form>
-        @include('posts.commentsDisplay', ['comments' => $comment->replies])
+{{--@foreach($comments as $comment)--}}
+{{--    {{$comment->count()}}--}}
+{{--    @if($comment->post_id == $post->id)--}}
+{{--        <div class="col-12 float-left text-left">--}}
+{{--            <p class="form-group"> <strong>{{$comment->User->name}}</strong> {{$comment->body}}</p>--}}
+{{--        </div>--}}
+{{--    @endif--}}
+
+{{--@endforeach--}}
+
+    @forelse ($post->Comment as $comment)
+
+        <div class="col-12 float-left text-left">
+
+            <p class="form-group">
+                <img class="card-img" src="{{asset('upload-img/'.$comment->User->Profile->img)}}"  style="width: 25px;border-radius: 50%">
+                <strong>{{$comment->User->name}}</strong> {{$comment->body}}
+            </p>
+        </div>
+    @empty
+        <p>This post has no comments</p>
+    @endforelse
+
+<form method="POST" action="{{ route('comments.store')  }}">
+    @csrf
+
+    <div class="form-group">
+        <textarea class="form-control" name="body"></textarea>
+        <input type="hidden" name="post_id" value="{{ $post->id }}" />
     </div>
-@endforeach
+    <div class="form-group">
+        <input type="submit" class="btn btn-success" value="Share" />
+    </div>
+</form>

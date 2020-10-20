@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\CategoryPosts;
+use App\Comment;
 use App\Post;
 use App\User;
 use Illuminate\Support\Facades\Auth;
@@ -18,6 +19,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
+        //access without authentication to the index
         $this->middleware('auth',['except' => 'index']);
     }
 
@@ -28,13 +30,19 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $posts = Post::all();
+        //calling all records post
+        $posts = Post::get();
+        $posts2 = Post::get();
 
-        $posts2 = Post::all();
+        //calling all records CategoryPosts
+        $category = CategoryPosts::get();
 
-        $category = CategoryPosts::all();
+        //calling all records CategoryPosts
+        $users = User::get();
 
-        $users = User::latest()->get();
+        //calling all records Comment
+        $comments = Comment::get();
+
 
         $post= [];
 
@@ -42,6 +50,7 @@ class HomeController extends Controller
             $post[ Str::slug( $category->name ) ][] = Post::where('post_id', $category->id )->take(3)->get();
         }
 
-        return view('home', compact('post','users','posts','posts2'));
+        //return db record to view
+        return view('home', compact('post','users','posts','posts2','comments'));
     }
 }

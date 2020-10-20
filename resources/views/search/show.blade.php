@@ -41,26 +41,47 @@
                                             <h4 class="text-right">{{$post->title}}</h4>
                                         </div>
                                 </div>
-{{--                                <a href="{{route('posts.show',['post'=>$post->id])}}">--}}
                                     <img class="card-img" src="{{asset('upload-img/'.$post->img)}}" alt="Card image cap" style="width: 600px">
-{{--                                </a>--}}
+                                        <div class="card-body px-3">
 
-                                <div class="card-body px-3">
                                             @if (! $post->liked)
                                                 <a href="{{ route('posts.like', $post) }}" class="btn btn-light btn-sm">
                                                     <i class="far fa-heart"></i>
                                                 </a>
+
+                                            <div class="col-12 float-left text-left">
                                                 <p class="">{{ $post->likesCount }} Likes</p>
+                                            </div>
+                                                <p class=""></p>
                                             @else
                                                 <a href="{{ route('posts.unlike', $post) }}" class="btn btn-danger btn-sm">
                                                     <i class="far fa-heart"></i>
                                                 </a>
+
+                                            <div class="col-12 float-left text-left">
                                                 <p class="">{{ $post->likesCount }} Likes</p>
+                                            </div>
+
                                             @endif
-                                </div>
-                                 <div class="row post-header px-3 pb-3">
-                                    <div class="col-10 float-left text-left">{{$post->description}}</div>
-                                </div>
+                                            <div class="col-12 float-left text-left">
+                                                 <strong>{{$post->User->name}}</strong> {{$post->description}}
+                                              <a class="" data-toggle="collapse" href="#collaps" role="button" aria-expanded="false" aria-controls="collaps">
+                                                más
+                                              </a>
+
+                                            </div>
+                                        </div>
+                                    <div class="row post-header px-2 pb-2">
+                                        <div class="col-12 float-left text-left">
+                                                {{$post->User->Comment}}
+                                            <div class="collapse" id="collaps">
+                                              <div class="card card-body" style="border:0px">
+                                                 @include('posts.comments')
+                                              </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
                             </div>
                             @endforeach
 

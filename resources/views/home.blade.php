@@ -42,36 +42,43 @@
                                                     <i class="far fa-heart"></i>
                                                 </a>
 
+                                            <div class="col-12 float-left text-left">
                                                 <p class="">{{ $post->likesCount }} Likes</p>
+                                            </div>
+                                                <p class=""></p>
                                             @else
                                                 <a href="{{ route('posts.unlike', $post) }}" class="btn btn-danger btn-sm">
                                                     <i class="far fa-heart"></i>
                                                 </a>
-                                                <p class="">{{ $post->likesCount }} Likes</p>
-                                            @endif
-                                            <div class="col-10 float-left text-left">{{$post->description}}</div>
-                                        </div>
-                                     <div class="row post-header px-2 pb-2">
-                                        <div class="col-10 float-left text-left">
-                                            <h4>Display Comments</h4>
-                                            <hr>
 
-{{--                                             @include('posts.comments', ['comments' => $post->comments, 'post_id' => $post->id])--}}
-                                               <hr />
-                                            <h4>Add comment</h4>
-                                            <form method="POST" action="{{ route('comments.store')  }}">
-                                                @csrf
-                                                <div class="form-group">
-                                                    <textarea class="form-control" name="body"></textarea>
-                                                    <input type="hidden" name="post_id" value="{{ $post->id }}" />
-                                                </div>
-                                                <div class="form-group">
-                                                    <input type="submit" class="btn btn-success" value="Add Comment" />
-                                                </div>
-                                            </form>
+                                            <div class="col-12 float-left text-left">
+                                                <p class="">{{ $post->likesCount }} Likes</p>
+                                            </div>
+
+                                            @endif
+                                            <div class="col-12 float-left text-left">
+                                                 <strong>{{$post->User->name}}</strong> {{$post->description}}
+                                              <a class="" data-toggle="collapse" href="#collaps{{$post->id}}" role="button" aria-expanded="false" aria-controls="collaps{{$post->id}}">
+                                                more   {{  $post->Comment->count() }} Comments
+                                              </a>
+
+
+                                            </div>
+                                        </div>
+
+
+                                    <div class="row post-header px-2 pb-2">
+                                        <div class="col-12 float-left text-left">
+                                            {{ $post->User->Comment }}
+                                            <div class="collapse" id="collaps{{$post->id}}">
+                                              <div class="card card-body" style="border:0px">
+
+                                                 @include('posts.comments')
+                                              </div>
+                                            </div>
+
                                         </div>
                                     </div>
-                            </div>
                             @endforeach
 
                     </div>

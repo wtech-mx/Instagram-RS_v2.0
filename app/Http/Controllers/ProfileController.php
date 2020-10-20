@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Comment;
 use App\Profile;
 use App\Post;
 use Illuminate\Http\Request;
@@ -13,6 +14,7 @@ class ProfileController extends Controller
 
     public function __construct()
     {
+        //Authentication is required to enter the methods
         $this->middleware('auth',['except' => 'show']);
     }
 
@@ -22,15 +24,14 @@ class ProfileController extends Controller
         $posts = Post::where('user_id', $profile->user_id)->paginate(3);
         $posts2 = Post::where('user_id', $profile->user_id)->paginate(3);
 
+        $comments = Comment::get();
+
         if (Auth::check() == true){
-
-            return view('profile.show',compact('profile','posts','posts2'));
-
+            return view('profile.show',compact('profile','posts','posts2','comments'));
         } else{
-
             return redirect('/login');
         }
-
+        
     }
 
     public function edit(Profile $profile)

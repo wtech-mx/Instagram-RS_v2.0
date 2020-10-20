@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Comment;
 use App\Post;
 use App\CategoryPosts;
 use Illuminate\Http\Request;
@@ -13,12 +14,16 @@ class PostController extends Controller
 
     public function __construct()
     {
+        //Authentication is required to enter the methods
         $this->middleware('auth');
     }
 
     public function index()
     {
+        //get all post logs
         $posts = Post::all();
+
+        //authenticated user data
         $user = auth()->user();
 
         return view('posts.index', compact('posts','user'));
@@ -113,7 +118,9 @@ class PostController extends Controller
         $posts2 = Post::where('title','like','%'. $search. '%')->paginate(1);
         $posts2->appends(['search' => $search]);
 
-        return view('search.show',compact('posts','posts2','search'));
+        $comments = Comment::get();
+
+        return view('search.show',compact('posts','posts2','search','comments'));
 
     }
 
