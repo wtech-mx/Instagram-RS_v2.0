@@ -31,12 +31,14 @@ class PostController extends Controller
 
     public function create()
     {
+
         $post = CategoryPosts::all(['id','name']);
         return view('posts.create',compact('post'));
     }
 
      public function store(Request $request)
     {
+        //data validation for the post
         $data = $request->validate([
             'title' => 'required',
             'description' => 'required',
@@ -45,11 +47,14 @@ class PostController extends Controller
         ]);
 
     	if ($data['img']) {
+
+    	    //image validation and map folder
     		$file=$request->file('img');
     		$location = $file->move(public_path().'/upload-img',time().".".$file->getClientOriginalExtension());
     		$imgname =  $data['img']=time().".".$file->getClientOriginalExtension();
     	}
 
+    	//create post with the validation data according to logged user data
         auth()->user()->Post()->create([
             'title' => $data['title'],
             'description' => $data['description'],
@@ -66,32 +71,35 @@ class PostController extends Controller
         return view('posts.show', compact('post'));
     }
 
-       public function edit(Post $post)
+    public function edit(Post $post)
     {
+        //Users logged in and their id corresponds
         $this->authorize('view',$post);
+
+        //calling a category record
         $category = CategoryPosts::all(['id','name']);
 
+        //returning records to view
         return view('posts.edit',compact('category','post'));
     }
 
     public function update(Request $request, Post $post)
     {
-
+        //data validation
         $data = $request->validate([
             'title' => 'required|min:6',
             'description' => 'required',
             'post_id' => 'required',
         ]);
 
-
+         //image validation and map folder
         if (request('img')){
     		$file=$request->file('img');
-
     		$location = $file->move(public_path().'/upload-img',time().".".$file->getClientOriginalExtension());
     		$imgname =  $data['img']=time().".".$file->getClientOriginalExtension();
     		$post->img = $imgname;
     	}
-
+        //updating data
         $post->title = $data['title'];
         $post->description = $data['description'];
         $post->post_id = $data['post_id'];
@@ -102,9 +110,10 @@ class PostController extends Controller
 
     public function destroy(Post $post)
     {
-        //ejecutar el policy
+        //run el policy
         $this->authorize('delete',$post);
 
+        //removing all the records from the post
         $post->delete();
 
         return Redirect::back();
@@ -112,18 +121,18 @@ class PostController extends Controller
 
     public function search(Request $request)
     {
+        //request is compared to logs from db
         $search = $request->get('search');
         $posts = Post::where('title','like','%'. $search. '%')->paginate(1);
         $posts->appends(['search' => $search]);
         $posts2 = Post::where('title','like','%'. $search. '%')->paginate(1);
         $posts2->appends(['search' => $search]);
 
-        $comments = Comment::get();
-
-        return view('search.show',compact('posts','posts2','search','comments'));
+        return view('search.show',compact('posts','posts2','search'));
 
     }
 
+    //dependency methods for working likes
     public function like(Post $post)
     {
         $post->likeBy();
@@ -136,15 +145,4 @@ class PostController extends Controller
         return back();
     }
 
-    public function dislike(Post $post)
-    {
-        $post->dislikeBy();
-        return back();
-    }
-
-    public function undislike(Post $post)
-    {
-        $post->undislikeBy();
-        return back();
-    }
 }

@@ -10,6 +10,8 @@ class CategoryController extends Controller
 {
     public function show(CategoryPosts $categoryPosts)
     {
+
+        //call and page the category records
         $post = Post::where('post_id',$categoryPosts->id)->paginate(3);
 
         return view('post.show',compact('post','categoryPost'));

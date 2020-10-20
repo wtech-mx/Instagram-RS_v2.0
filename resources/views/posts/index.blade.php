@@ -9,6 +9,7 @@
 
                     <div class="card-body">
                         <ul>
+
                         @foreach ($posts as $post)
                             <li>
                                 <p>{{ $post->title }}</p>

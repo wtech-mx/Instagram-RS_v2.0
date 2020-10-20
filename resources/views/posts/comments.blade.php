@@ -9,9 +9,7 @@
 {{--@endforeach--}}
 
     @forelse ($post->Comment as $comment)
-
         <div class="col-12 float-left text-left">
-
             <p class="form-group">
                 <img class="card-img" src="{{asset('upload-img/'.$comment->User->Profile->img)}}"  style="width: 25px;border-radius: 50%">
                 <strong>{{$comment->User->name}}</strong> {{$comment->body}}

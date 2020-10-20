@@ -29,11 +29,13 @@ class User extends Authenticatable implements LikerContrat
 
     public function Post()
     {
+        //relationship of many users to many posts
         return $this->hasMany(Post::class);
     }
 
     public function Profile()
     {
+        //relationship of a user to a profile
         return $this->hasOne(Profile::class);
     }
 
