@@ -20,7 +20,7 @@
 
                                 </div>
                             </div>
-
+                            {{--authenticate if the user is the same as the profile--}}
                             @if($profile->User->id == Auth::user()->id)
                                 <a href="{{route('profile.edit',$profile->id)}}" class="btn btn-light shadow btn-block mt-2">
                                         Update Profile
@@ -31,7 +31,7 @@
                 </div>
 
 <div class="container-fluid ">
-          <!-- Nav pills -->
+
             <ul class="nav nav-pills justify-content-center mt-4" role="tablist">
                 <li class="nav-item">
                     <a class="nav-link" data-toggle="pill" href="#home"><i class="fa fa-square" aria-hidden="true"></i></a>
@@ -44,14 +44,15 @@
             <div class="tab-content">
                 <div id="home" class="container-fluid tab-pane active "><br>
                     <div class="row justify-content-center">
+{{--                            post counter--}}
                             @if(count($posts) > 0)
                                 @foreach($posts as $post)
                                 <div class="card mx-auto custom-card mb-5" id="prova">
+
                                 <div class="row post-header col-12 py-2 px-3">
                                         <div class="col-6 float-left ">
-
                                              <a href="{{route('profile.show',$post->User->id)}}">
-                                                 <img class="rounded-circle" src="{{asset('upload-img/'.$profile->img)}}" style="width: 50px;">
+                                                 <img class="rounded-circle" src="{{asset('upload-img/'.$post->User->Profile->img)}}" style="width: 50px;">
                                                 <h4 class="text-left d-inline ml-2">{{$post->User->name}}</h4>
                                            </a>
                                         </div>
@@ -69,40 +70,40 @@
                                                     <i class="far fa-heart"></i>
                                                 </a>
 
-                                            <div class="col-12 float-left text-left">
-                                                <p class="">{{ $post->likesCount }} Likes</p>
-                                            </div>
-                                                <p class=""></p>
+                                                <div class="col-12 float-left text-left">
+                                                    <p class="">{{ $post->likesCount }} Likes</p>
+                                                </div>
                                             @else
                                                 <a href="{{ route('posts.unlike', $post) }}" class="btn btn-danger btn-sm">
                                                     <i class="far fa-heart"></i>
                                                 </a>
 
-                                            <div class="col-12 float-left text-left">
-                                                <p class="">{{ $post->likesCount }} Likes</p>
-                                            </div>
+                                                <div class="col-12 float-left text-left">
+                                                    <p class="">{{ $post->likesCount }} Likes</p>
+                                                </div>
 
                                             @endif
                                             <div class="col-12 float-left text-left">
+                                                {{--relationship of post and user to get the name--}}
                                                  <strong>{{$post->User->name}}</strong> {{$post->description}}
-                                              <a class="" data-toggle="collapse" href="#collaps" role="button" aria-expanded="false" aria-controls="collaps">
-                                                más
+                                              <a class="" data-toggle="collapse" href="#collaps{{$post->id}}" role="button" aria-expanded="false" aria-controls="collaps{{$post->id}}">
+                                                more   {{  $post->Comment->count() }} Comments
                                               </a>
 
                                             </div>
                                         </div>
 
-                                    <div class="row post-header px-2 pb-2">
-                                        <div class="col-12 float-left text-left">
-                                                {{$post->User->Comment}}
-                                            <div class="collapse" id="collaps">
-                                              <div class="card card-body" style="border:0px">
-                                                 @include('posts.comments')
-                                              </div>
+                                        <div class="row post-header px-2 pb-2">
+                                            <div class="col-12 float-left text-left">
+                                                {{ $post->User->Comment }}
+                                                <div class="collapse" id="collaps{{$post->id}}">
+                                                  <div class="card card-body" style="border:0px">
+                                                     @include('posts.comments')
+                                                  </div>
+                                                </div>
                                             </div>
-
                                         </div>
-                                    </div>
+                                </div>
                                 @endforeach
                             @else
                                 <p class="text-center w-100">No hay recetas disponibles</p>

@@ -6,6 +6,7 @@
 
     <div class="row justify-content-center">
         <div class="col-md-10 bg-white p-3">
+            {{-- profile edit form--}}
             <form action="{{route('profile.update',['profile' => $profile->id])}}" method="POST" enctype="multipart/form-data" >
                 @csrf
                 @method('PUT')
